@@ -1,0 +1,42 @@
+# push のたびに、型・lint・テスト・データベースの権限のテスト・書き出しを走らせる（D-168）。
+# 手元で npm run check を忘れても、壊れたまま公開する前に気づけるようにする。
+name: テスト
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+# 同じブランチに続けて push したら、前の実行は止める
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - run: npm ci
+
+      - name: 型・lint・テスト
+        run: npm run check
+
+      - name: データベースの権限のテスト
+        run: npm run test:db
+
+      # 公開（Cloudflare）と同じ書き出しが通るか。Supabase にはつながないので、仮の値でよい
+      - name: 書き出し
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://abcdefghijklmnopqrst.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: dummy
+        run: npm run build

@@ -1,0 +1,42 @@
+{
+  "name": "kinta-cost",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && node scripts/csp-headers.mjs",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "vitest run",
+    "typecheck": "next typegen && tsc --noEmit",
+    "check": "npm run typecheck && npm run lint && npm run test",
+    "test:db": "node supabase/tests/run-rls-tests.mjs",
+    "db:sql": "node scripts/build-sql.mjs",
+    "db:seed": "node scripts/seed-from-json.mjs",
+    "db:push": "supabase db push",
+    "db:link": "supabase link",
+    "move:export": "node scripts/move-data.mjs export",
+    "move:import": "node scripts/move-data.mjs import"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
+    "lucide-react": "^1.49.0",
+    "next": "16.4.3",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^24.19.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.3",
+    "supabase": "^2.119.0",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^5.0.3"
+  }
+}

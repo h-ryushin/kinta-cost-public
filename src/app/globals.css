@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* 色はここで定義した名前だけを使う（docs/conventions.md） */
+:root {
+  --background: #f5f3f0;
+  --surface: #ffffff;
+  --surface-muted: #faf8f6;
+  --foreground: #1c1917;
+  --muted: #6b645d;
+  --subtle: #a39b93;
+  --border: #e7e2dc;
+  --border-strong: #d6cfc7;
+  --accent: #b42318;
+  --accent-hover: #912018;
+  --accent-soft: #fdecea;
+  --danger: #b42318;
+
+  /* 文字に使う状態の色（白い背景で読める濃さ） */
+  --ok: #17663f;
+  --ok-soft: #e6f4ea;
+  --warn: #8a5300;
+  --warn-soft: #fdf3dc;
+
+  /* メーターなどの塗りに使う状態の色（D-035）。必ずアイコンと文字と一緒に使う */
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-critical: #d03b3b;
+  --track: #eeeae5;
+
+  /* PC のサイドバー */
+  --sidebar: #1f1b18;
+  --sidebar-foreground: #d9d3cc;
+  --sidebar-muted: #8f877f;
+  --sidebar-hover: #2c2723;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-status-good: var(--status-good);
+  --color-status-warning: var(--status-warning);
+  --color-status-critical: var(--status-critical);
+  --color-track: var(--track);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --color-sidebar-hover: var(--sidebar-hover);
+  --font-sans: var(--font-noto-sans-jp), "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", Meiryo, system-ui, sans-serif;
+  --shadow-card: 0 1px 2px rgb(28 25 23 / 0.04), 0 1px 3px rgb(28 25 23 / 0.06);
+  --shadow-raised: 0 4px 12px rgb(28 25 23 / 0.08), 0 1px 3px rgb(28 25 23 / 0.06);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* 表の列など、縦にそろえる数字だけに使う（大きな数字には使わない） */
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* スマホでキーボードが出ているあいだは、下に固定したタブ・原価のバー・上に戻るボタンを隠す。
+   打っている欄にかぶさって、入れた文字が見えなくなるため（D-176。src/lib/typing.ts） */
+@media (pointer: coarse) {
+  :root[data-typing] .hide-while-typing {
+    display: none;
+  }
+}

@@ -1,0 +1,30 @@
+// Cloudflare Workers の設定（D-048・D-083）
+// - out/ に書き出した静的なアプリを配信する
+// - 1日1回 Supabase を叩いて、1週間の無アクセスで止まるのを防ぐ
+{
+  "name": "kinta-cost",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./out",
+    // Worker から配信するためのバインディング
+    "binding": "ASSETS",
+    // /menus/edit で out/menus/edit.html を返す
+    "html_handling": "auto-trailing-slash",
+    // 存在しない URL は out/404.html を返す
+    "not_found_handling": "404-page"
+  },
+  // Cloudflare のログを残す（D-155）。1日1回の ping の成否などを、ダッシュボードの Workers Logs で見られる。無料の枠で使える
+  "observability": {
+    "enabled": true
+  },
+  "triggers": {
+    // 毎日 UTC 0:00（日本時間 9:00）に ping する
+    "crons": ["0 0 * * *"]
+  },
+  "vars": {
+    // どちらも公開してよい値（配信しているアプリの JavaScript にも入っている）
+    "SUPABASE_URL": "https://YOUR-PROJECT.supabase.co",
+    "SUPABASE_ANON_KEY": "YOUR-ANON-KEY"
+  }
+}

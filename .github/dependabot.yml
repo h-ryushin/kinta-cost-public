@@ -1,0 +1,27 @@
+# ライブラリの弱点を見張り、直した版への入れ替えを提案してもらう（D-149、要件定義書 4.4）
+# 提案（プルリクエスト）は develop に出す。main は公開中のアプリで、オーナーの承認でしか変えない（D-049）
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Tokyo
+    # 小さな更新はまとめて1つの提案にする（数が多いと見きれないため）
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "ライブラリを更新する"
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: monthly
+      timezone: Asia/Tokyo
+    commit-message:
+      prefix: "GitHub Actions を更新する"

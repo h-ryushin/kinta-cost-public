@@ -1,0 +1,10 @@
+{
+  "name": "きんた 原価計算",
+  "short_name": "きんた原価",
+  "description": "焼肉店きんたの材料原価とメニュー原価を計算するアプリ",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f3f0",
+  "theme_color": "#f5f3f0",
+  "icons": [{ "src": "/apple-icon.png", "sizes": "180x180", "type": "image/png" }]
+}
